@@ -34,6 +34,7 @@
             </div>
             <mat-card-actions class="buttons">
               <button mat-raised-button color="primary" (click)="removeFavouriteItem(img.id)">Remove</button>
+              <button mat-raised-button (click)="downloadImage(img.url, img.name)">Download</button>
             </mat-card-actions>
           </mat-card>
         </div>

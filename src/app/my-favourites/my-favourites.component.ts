@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { HttpClient } from '@angular/common/http';
+import { Favourites } from '../types';
 
 @Component({
   selector: 'app-my-favourites',
@@ -8,10 +10,10 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class MyFavouritesComponent implements OnInit {
 
-  @Input() favourites: any = [];
+  @Input() favourites: Favourites[] = [];
   @Output() removeItem = new EventEmitter();
 
-  searchText: any;
+  searchText: string = '';
   sortByValues = [
     {
       value: 'name',
@@ -31,13 +33,13 @@ export class MyFavouritesComponent implements OnInit {
     }
   ]
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.favourites = [];
   }
 
-  trackByFn(index:number, item:any) {
+  trackByFn(index:number, item:Favourites) {
     return item.id;
   }
   
@@ -69,7 +71,26 @@ export class MyFavouritesComponent implements OnInit {
     moveItemInArray(this.favourites, event.previousIndex, event.currentIndex);
   }
 
-  removeFavouriteItem(id:any){
+  removeFavouriteItem(id:string){
     this.removeItem.emit(id);
   }
+
+  downloadImage(url:string, name: string){
+    this.http.get(url, { responseType: 'blob' }).subscribe((val:any) => {
+      console.log(val);
+      const url = URL.createObjectURL(val);
+      this.downloadUrl(url, name);
+      URL.revokeObjectURL(url);
+    });
+  }
+
+  downloadUrl(url: string, fileName: string) {
+    const a: any = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.style = 'display: none';
+    a.click();
+    a.remove();
+  };
 }

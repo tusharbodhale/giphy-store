@@ -6,6 +6,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import {MatDialog} from '@angular/material/dialog';
 import { AddImageComponent } from './add-image/add-image.component';
 import { ToastrService } from 'ngx-toastr';
+import { Favourites } from './types';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit{
     name: ['', Validators.required],
   });
 
-  favourites: any;
+  favourites: Favourites[] = [];
 
   constructor(
     private fb: FormBuilder, 
@@ -42,7 +43,6 @@ export class AppComponent implements OnInit{
   }
 
   onSubmit(){
-    // TODO: Use EventEmitter with form value
     console.warn(this.searchForm.value);
     if(this.searchForm.get('name')?.value !== ''){
       let name = this.searchForm.get('name')?.value;
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit{
     return item.id;
   }
 
-  addToFavourite(image:any){
+  addToFavourite(image:Favourites){
     let dialogRef = this.dialog.open(AddImageComponent, {
       height: '80%',
       width: '60%',
@@ -116,7 +116,7 @@ export class AppComponent implements OnInit{
     });
   }
 
-  removeFavourite(id:any){
+  removeFavourite(id:string){
     this.IDBService.delete('giphy', id).subscribe((images:any) => {
       console.log('all images:', images);
       this.toastr.success('Successfully removed from my favourites.');
