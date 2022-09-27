@@ -73,12 +73,10 @@ export class AppComponent implements OnInit{
 
   onScroll(){
     console.log('scrolled');
-    setTimeout(() => {
       if(this.searchForm.get('name')?.value !== ''){
         let name = this.searchForm.get('name')?.value;
-        this.callApi(name?name:'', 20, this.offset + 21);
+        this.callApi(name?name:'', 20, this.offset);
       }
-    }, 2000);
   }
 
   trackByFn(index:number, item:any) {
