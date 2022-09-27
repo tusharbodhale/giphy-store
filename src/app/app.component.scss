@@ -1,0 +1,29 @@
+.container{
+    padding-top:118px;
+}
+.search-card{
+    margin-bottom: 15px;
+    background-color: midnightblue;
+    color: white;
+    .search-btn{
+        height: 50px;
+        color: white;
+    }
+    
+}
+::ng-deep .search-card {
+    .mat-form-field-flex {
+        background-color: white;
+        color: black;
+    }
+    .mat-hint{
+        color: white;
+    }
+}
+.sticky {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width:100%;
+}
+

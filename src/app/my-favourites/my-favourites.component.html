@@ -1,0 +1,42 @@
+<mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title  class="justify-content-center">
+        My Favourites
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 d-flex justify-content-center">
+        <mat-form-field appearance="fill">
+          <mat-label>Search Favourites</mat-label>
+          <input matInput placeholder="Search by name/date" [(ngModel)]="searchText" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Sort By</mat-label>
+          <mat-select name="sortBy">
+            <mat-option *ngFor="let sortBy of sortByValues" [value]="sortBy" (click)="sort(sortBy)">
+              {{sortBy.value | titlecase}} - {{sortBy.order | titlecase}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="favourites.length == 0">
+        No favourite images found
+      </div>
+      <div class="row justify-content-center" cdkDropList (cdkDropListDropped)="drop($event)" >
+        <div class="col-3" cdkDrag *ngFor="let img of favourites| callbackFilter: filterFavourites;trackBy: trackByFn">
+          <mat-card class="image-card">
+            <mat-card-header>
+              <mat-card-title>{{img.name}}</mat-card-title>
+              <mat-card-subtitle>Added on {{img.date | date:'mediumDate'}}</mat-card-subtitle>
+            </mat-card-header>
+            <div class="image">
+              <img mat-card-image [src]="img.url" alt="Photo of a Shiba Inu">
+            </div>
+            <mat-card-actions class="buttons">
+              <button mat-raised-button color="primary" (click)="removeFavouriteItem(img.id)">Remove</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-expansion-panel>

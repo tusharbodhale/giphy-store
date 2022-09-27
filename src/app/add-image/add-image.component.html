@@ -1,0 +1,27 @@
+<div class="header">
+    <h2>Add Image To My Favourites</h2>
+</div>
+<div class="row">
+    <div class="col-6">
+        <div class="image">
+            <img mat-card-image [src]="img.url">
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="button-panel">
+            <div class="row">
+                <div class="col-12">
+                    <form [formGroup]="saveForm" >
+                        <mat-form-field class="example-full-width" appearance="fill">
+                          <mat-label>Name</mat-label>
+                          <input matInput placeholder="Ex. My Cat" formControlName="name" required>
+                        </mat-form-field>
+                    </form>
+                </div>
+                <div class="col-12">
+                    <button mat-raised-button color="primary" (click)="save()">Save</button>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>

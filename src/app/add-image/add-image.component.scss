@@ -1,0 +1,24 @@
+:host{
+    .header{
+        display: flex;
+        justify-content: center;
+        h2{
+            display: inline-block;
+        }
+    }
+    .image{
+        margin: auto;
+        padding: 10px;
+        height: 250px;
+        width: 200px;
+        img{
+            width: 100%;
+            height: 100%; 
+            object-fit: cover;
+        }
+    }
+    .button-panel{
+        display: flex;
+        justify-content: center;
+    }
+}
